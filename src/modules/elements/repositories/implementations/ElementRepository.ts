@@ -1,5 +1,5 @@
 import { ElementModel } from "../../model/ElementModel";
-import { IElementRepository } from "../IElementRepository";
+import { IElementRepository, ITest } from "../IElementRepository";
 
 
 class ElementRepository implements IElementRepository {
@@ -9,7 +9,19 @@ class ElementRepository implements IElementRepository {
     constructor(){
         this.elements = [];
     }
-    
+
+    createTest({name, atomicNumber, symbol}:ITest): ElementModel {
+        const element = new ElementModel();
+
+        Object.assign(element, { 
+            name,
+            atomicNumber,
+            symbol,
+        })
+
+        return element;
+    }
+
     list(): ElementModel[] {
         return this.elements;
     }

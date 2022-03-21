@@ -1,4 +1,3 @@
-// import elements from '../../../../elements.json';
 import { ElementRepository } from '../../repositories/implementations/ElementRepository';
 import { ListElementsService } from '../../services/ListElementsService';
 import { ListElementsController } from '../../controller/ListElementsController';
