@@ -1,0 +1,19 @@
+{
+    "elements" : [
+        {
+            "name": "Hidrogênio",
+            "atomicNumber": 1,
+            "symbol": "H"
+        },
+        {
+            "name": "Hélio",
+            "atomicNumber": 2,
+            "symbol": "He"
+        },
+        {
+            "name": "Lítio",
+            "atomicNumber": 3,
+            "symbol": "Li"
+        }
+    ] 
+}
