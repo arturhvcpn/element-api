@@ -1,11 +1,11 @@
 import { ElementModel } from "../../model/ElementModel";
 import { IElementRepository, ITest } from "../IElementRepository";
-import { collection, getDocs, QuerySnapshot, CollectionReference, DocumentData } from "firebase/firestore";
+import { collection, getDocs, CollectionReference, DocumentData } from "firebase/firestore";
 import { firestoreDB } from "../../db/db";
 
 class ElementRepository implements IElementRepository {
 
-    private elements: ElementModel[] | QuerySnapshot<DocumentData>;
+    private elements: ElementModel[];
     private collection: CollectionReference<DocumentData>;
 
     private static INSTANCE: ElementRepository;
@@ -36,13 +36,15 @@ class ElementRepository implements IElementRepository {
     }
 
     async list(): Promise<ElementModel[]> {
-        const instance = await (await getDocs(this.collection)).docs.map(element => {
-            return {...element.data()}
+        const elements = await (await getDocs(this.collection)).docs.map(element => {
+            return {
+                name: element.data().name,
+                symbol: element.data().symbol,
+                atomicNumber: element.data().atomicNumber
+            } as ElementModel
         });
-
-        this.elements = instance;
         
-        return this.elements;
+        return elements;
     }
 
     findByName(name: string): ElementModel {
