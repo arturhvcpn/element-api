@@ -2,7 +2,7 @@ import { ElementRepository } from '../../repositories/implementations/ElementRep
 import { ListElementsService } from '../../services/ListElementsService';
 import { ListElementsController } from '../../controller/ListElementsController';
 
-const elementRepository = new ElementRepository();
+const elementRepository = ElementRepository.getInstance();
 const listElementsService = new ListElementsService(elementRepository);
 const listElementsController = new ListElementsController(listElementsService);
 

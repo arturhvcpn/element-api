@@ -1,13 +1,26 @@
 import { ElementModel } from "../../model/ElementModel";
 import { IElementRepository, ITest } from "../IElementRepository";
-
+import { collection, getDocs, QuerySnapshot, CollectionReference, DocumentData } from "firebase/firestore";
+import { firestoreDB } from "../../db/db";
 
 class ElementRepository implements IElementRepository {
 
-    private elements: ElementModel[];
+    private elements: ElementModel[] | QuerySnapshot<DocumentData>;
+    private collection: CollectionReference<DocumentData>;
 
-    constructor(){
+    private static INSTANCE: ElementRepository;
+
+    private constructor(){
+        this.collection = collection(firestoreDB, 'elements');
         this.elements = [];
+    }
+
+    public static getInstance(): ElementRepository{
+        if(!ElementRepository.INSTANCE){
+            ElementRepository.INSTANCE = new ElementRepository();
+        }
+
+        return ElementRepository.INSTANCE;
     }
 
     createTest({name, atomicNumber, symbol}:ITest): ElementModel {
@@ -22,7 +35,13 @@ class ElementRepository implements IElementRepository {
         return element;
     }
 
-    list(): ElementModel[] {
+    async list(): Promise<ElementModel[]> {
+        const instance = await (await getDocs(this.collection)).docs.map(element => {
+            return {...element.data()}
+        });
+
+        this.elements = instance;
+        
         return this.elements;
     }
 

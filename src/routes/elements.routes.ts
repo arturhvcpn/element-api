@@ -4,7 +4,7 @@ import { listElementsController } from '../modules/elements/useCases/listElement
 
 const elementsRouter = Router();
 
-elementsRouter.get('/', (request, response) => {
+elementsRouter.get('/all', (request, response) => {
     return listElementsController.handle(request, response);
 });
 

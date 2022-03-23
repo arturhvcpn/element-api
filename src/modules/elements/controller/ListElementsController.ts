@@ -4,8 +4,8 @@ import { ListElementsService } from "../services/ListElementsService";
 class ListElementsController{
     constructor(private listElementsService: ListElementsService){}
 
-    handle(request: Request, response: Response): Response{
-        const elements = this.listElementsService.execute();
+    async handle(request: Request, response: Response): Promise<Response>{
+        const elements =  await this.listElementsService.execute();
         
         return response.json(elements);
     }

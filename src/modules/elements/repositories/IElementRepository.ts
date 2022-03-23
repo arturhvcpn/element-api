@@ -7,7 +7,7 @@ export interface ITest {
 }
 
 interface IElementRepository {
-    list(): ElementModel[];
+    list(): Promise<ElementModel[]>;
     findByName(name: string): ElementModel;
     findBySymbol(symbol: string): ElementModel;
     findByAtomicNumber(atomicNumber: number):  ElementModel;

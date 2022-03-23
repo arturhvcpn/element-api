@@ -5,8 +5,9 @@ class ListElementsService {
 
     constructor(private elementRepository: IElementRepository){}
     
-    execute(): ElementModel[]{
-        return this.elementRepository.list();
+    async execute():Promise<ElementModel[]> {
+        const elements = await this.elementRepository.list();
+        return elements;
     }
 
 }
