@@ -1,17 +1,17 @@
 import { ElementModel } from "../../model/ElementModel";
 import { IElementRepository, ITest } from "../IElementRepository";
-import { collection, getDocs, CollectionReference, DocumentData } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, DocumentData, Query } from "firebase/firestore";
 import { firestoreDB } from "../../db/db";
 
 class ElementRepository implements IElementRepository {
 
     private elements: ElementModel[];
-    private collection: CollectionReference<DocumentData>;
+    private collection: Query<DocumentData>;
 
     private static INSTANCE: ElementRepository;
 
     private constructor(){
-        this.collection = collection(firestoreDB, 'elements');
+        this.collection = query(collection(firestoreDB, 'elements'), orderBy('atomicNumber'));
         this.elements = [];
     }
 
