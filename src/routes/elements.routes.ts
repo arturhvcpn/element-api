@@ -5,19 +5,19 @@ import { listElementsController } from '../modules/elements/useCases/listElement
 const elementsRouter = Router();
 
 elementsRouter.get('/all', (request, response) => {
-    return listElementsController.handle(request, response);
+    return listElementsController.handleListAll(request, response);
 });
 
 elementsRouter.get('/atomicnumber/:atomicnumber', (request, response) => {
-    return listElementsController.hand(request, response);
+    return listElementsController.handleFilterByAtomicNumber(request, response);
 });
 
 elementsRouter.get('/symbol/:symbol', (request, response) => {
-    return listElementsController.ha(request, response);
+    return listElementsController.handleFilterBySymbol(request, response);
 });
 
 elementsRouter.get('/name/:name', (request, response) => {
-    return listElementsController.h(request, response);
+    return listElementsController.handleFilterByName(request, response);
 });
 
 elementsRouter.post('/create', (request, response) => {

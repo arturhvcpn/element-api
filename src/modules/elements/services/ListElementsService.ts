@@ -5,26 +5,25 @@ class ListElementsService {
 
     constructor(private elementRepository: IElementRepository){}
     
-    async execute():Promise<ElementModel[]> {
+    async executeListAll():Promise<ElementModel[]> {
         const elements = await this.elementRepository.list();
         return elements;
     }
 
-    async exe(atomicnumber:number):Promise<ElementModel> {
+    async executeFindByAtomicNumber(atomicnumber:number):Promise<ElementModel> {
         const elements = await this.elementRepository.findByAtomicNumber(atomicnumber);
         return elements;
     }
 
-    async e(symbol:string):Promise<ElementModel> {
+    async executeFindBySymbol(symbol:string):Promise<ElementModel> {
         const elements = await this.elementRepository.findBySymbol(symbol);
         return elements;
     }
 
-    async ex(name:string):Promise<ElementModel> {
+    async executeFindByName(name:string):Promise<ElementModel> {
         const elements = await this.elementRepository.findByName(name);
         return elements;
     }
-
 }
 
 export { ListElementsService };
