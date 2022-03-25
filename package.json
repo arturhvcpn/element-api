@@ -8,8 +8,12 @@
     "dev:live": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts"
   },
   "dependencies": {
+    "@types/firebase": "^3.2.1",
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "firebase": "^9.6.9",
     "pino": "^7.9.1",
     "pino-pretty": "^7.5.4",
     "uuid": "^8.3.2"

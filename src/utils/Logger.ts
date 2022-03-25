@@ -6,6 +6,8 @@ const logger = pino({
         target:'pino-pretty',
         options: {
             colorize: true,
+            crlf: true,
+            timestampKey: true
         }
     }
     
