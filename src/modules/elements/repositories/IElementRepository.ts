@@ -8,9 +8,9 @@ export interface ITest {
 
 interface IElementRepository {
     list(): Promise<ElementModel[]>;
-    findByName(name: string): ElementModel;
-    findBySymbol(symbol: string): ElementModel;
-    findByAtomicNumber(atomicNumber: number):  ElementModel;
+    findByName(name: string): Promise<ElementModel>;
+    findBySymbol(symbol: string): Promise<ElementModel>;
+    findByAtomicNumber(atomicNumber: number): Promise<ElementModel>;
     createTest({name, atomicNumber, symbol}:ITest): ElementModel;
 }
 

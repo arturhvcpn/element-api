@@ -1,18 +1,20 @@
 import { ElementModel } from "../../model/ElementModel";
 import { IElementRepository, ITest } from "../IElementRepository";
-import { collection, getDocs, query, orderBy, DocumentData, Query } from "firebase/firestore";
+import { doc, collection, getDoc, getDocs, query, orderBy, DocumentData, Query, DocumentReference, CollectionReference, where, getDocFromServer, onSnapshot } from "firebase/firestore";
 import { firestoreDB } from "../../db/db";
+import { logger } from "../../../../utils/Logger";
 
 class ElementRepository implements IElementRepository {
 
     private elements: ElementModel[];
     private collection: Query<DocumentData>;
+    private readonly elementsCollectionRef: CollectionReference<DocumentData> = collection(firestoreDB, 'elements');
 
     private static INSTANCE: ElementRepository;
 
     private constructor(){
-        this.collection = query(collection(firestoreDB, 'elements'), orderBy('atomicNumber'));
         this.elements = [];
+        this.collection = query(this.elementsCollectionRef, orderBy('atomicNumber'));
     }
 
     public static getInstance(): ElementRepository{
@@ -36,35 +38,94 @@ class ElementRepository implements IElementRepository {
     }
 
     async list(): Promise<ElementModel[]> {
-        const elements = await (await getDocs(this.collection)).docs.map(element => {
-            return {
-                name: element.data().name,
-                symbol: element.data().symbol,
-                atomicNumber: element.data().atomicNumber
-            } as ElementModel
-        });
-        
-        return elements;
+        try {
+            const elements: ElementModel[] = await (await getDocs(this.collection)).docs.map(element => {
+                return {
+                    name: element.data().name,
+                    symbol: element.data().symbol,
+                    atomicNumber: element.data().atomicNumber
+                }});
+            
+            return elements;
+        } catch (error) {
+            logger.error(`Error: ${error}`)
+        }
     }
 
-    findByName(name: string): ElementModel {
-        const element = this.elements.find(element => element.name === name);
-
-        return element;
+    async findByName(name: string): Promise<ElementModel> {
+        try {
+            const elementFiltered: ElementModel[] = [];
+            const elements = await (await getDocs(this.collection)).docs.map(element => {
+                if(element.data().name === name){
+                    elementFiltered.push({
+                        name: element.data().name,
+                        symbol: element.data().symbol,
+                        atomicNumber: element.data().atomicNumber
+                    });
+                };
+            });
+    
+            if (!elementFiltered.length) {
+                return null;
+            }
+    
+            const element: ElementModel = JSON.parse(JSON.stringify(elementFiltered))
+    
+            return element;
+        } catch (error) {
+            logger.error(`Error: ${error}`)
+        }
     }
 
-    findBySymbol(symbol: string): ElementModel {
-        const element = this.elements.find(element => element.symbol === symbol);
-
-        return element;
+    async findBySymbol(symbol: string): Promise<ElementModel> {
+        try {
+            const elementFiltered : ElementModel[] = [];
+            const elements = await (await getDocs(this.collection)).docs.map(element =>{
+                if(element.data().symbol === symbol){
+                    elementFiltered.push({
+                        name: element.data().name,
+                        symbol: element.data().symbol,
+                        atomicNumber: element.data().atomicNumber
+                    });
+                };
+            });
+            
+            if (!elementFiltered.length) {
+                return null;
+            }
+    
+            const element: ElementModel = JSON.parse(JSON.stringify(elementFiltered))
+    
+            return element;
+        } catch (error) {
+            logger.error(`Error: ${error}`)
+        }
     }
 
-    findByAtomicNumber(atomicNumber: number): ElementModel {
-        const element = this.elements.find(element => element.atomicNumber === atomicNumber);
+    async findByAtomicNumber(atomicNumber: number): Promise<ElementModel> {
+        try {
+            const elementFiltered: ElementModel[] = [];
+            const elements = await (await getDocs(this.collection)).docs.map(element => {
+                if(element.data().atomicNumber === atomicNumber){
+                    elementFiltered.push({
+                        name: element.data().name,
+                        symbol: element.data().symbol,
+                        atomicNumber: element.data().atomicNumber
+                    });
+                };
+            });
 
-        return element;
+            if (!elementFiltered.length) {
+                return null;
+            }
+
+            const element: ElementModel = JSON.parse(JSON.stringify(elementFiltered))
+
+            return element;
+        } catch (error) {
+            logger.error(`Error: ${error}`)
+        }
     }
-
 }
 
 export { ElementRepository };
