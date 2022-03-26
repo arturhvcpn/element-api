@@ -5,6 +5,7 @@
   "repository": "https://github.com/arturhvcpn/element-api.git",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "dev:live": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "test": "jest"
   },
