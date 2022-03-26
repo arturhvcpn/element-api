@@ -1,6 +1,6 @@
 import { ElementModel } from "../../model/ElementModel";
 import { IElementRepository, ITest } from "../IElementRepository";
-import { doc, collection, getDoc, getDocs, query, orderBy, DocumentData, Query, DocumentReference, CollectionReference, where, getDocFromServer, onSnapshot } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, DocumentData, Query, CollectionReference } from "firebase/firestore";
 import { firestoreDB } from "../../db/db";
 import { logger } from "../../../../utils/Logger";
 

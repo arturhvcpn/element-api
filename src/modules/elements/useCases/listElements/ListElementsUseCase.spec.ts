@@ -1,17 +1,11 @@
-import { ListElementsService } from "../../services/ListElementsService";
 import { dataElements, ListElementsRepositoryInMemory } from "../../repositories/inMemory/ListElementsRepositoryInMemory";
-import { ElementModel } from "../../model/ElementModel";
-import { logger } from "../../../../utils/Logger";
 
-
-let listElementsUseCase: ListElementsService;
 let listElementsReposityInMemory: ListElementsRepositoryInMemory;
 
 describe('List elements and list element with filter', () =>{
 
   beforeEach(() => {
     listElementsReposityInMemory = new ListElementsRepositoryInMemory();
-    listElementsUseCase = new ListElementsService(listElementsReposityInMemory);
   });
   
   it('it should be list all elements', async () =>{
