@@ -1,0 +1,208 @@
+{
+  "openapi": "3.0.0",
+  "info":{
+    "title": "Chemical Elements - Api",
+    "description": "Api with data of chemical elements",
+    "version": "1.0.0",
+    "contact": {
+      "email": "arturcastropolonorte@gmail.com"
+    }
+  },
+  "summary": "List all chemical elements",
+  "description": "List all chemical elements in the periodic table.",
+  "paths": {
+    "/api/elements/all": {
+      "get": {
+        "tags": ["Elements"],
+        "summary": "List All Chemical Elements",
+        "description": "Returns all chemical elements in the periodic table.",
+        "request": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type" : "object",
+                "properties" : {
+                  "name": {
+                    "type" : "string"
+                  },
+                  "symbol": {
+                    "type" : "string"
+                  },
+                  "atomicNumber": {
+                    "type" : "number"
+                  }
+                },
+                "example": {
+                  "name": "Hidrogênio",
+                  "symbol": "H",
+                  "atomicNumber": 1
+                }
+              }
+            }
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Listed all chemical elements"
+          },
+          "500": {
+            "description": "Internal error server"
+          }
+        }
+      }
+    },
+    "/api/elements/atomicnumber/:atomicNumber": {
+      "get": {
+        "tags": ["Element by Atomic Number"],
+        "summary": "Find element from atomic number",
+        "description": "Returns filter based at atomic number chemical elements.",
+        "parameters": [
+          {
+            "name": "atomicNumber",
+            "in": "path",
+            "description": "Atomic number of element",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "request": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type" : "object",
+                "properties" : {
+                  "name": {
+                    "type" : "string"
+                  },
+                  "symbol": {
+                    "type" : "string"
+                  },
+                  "atomicNumber": {
+                    "type" : "number"
+                  }
+                },
+                "example": {
+                  "name": "Hidrogênio",
+                  "symbol": "H",
+                  "atomicNumber": 1
+                }
+              }
+            }
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Find by atomic number elements"
+          },
+          "500": {
+            "description": "Internal error server"
+          }
+        }
+      }
+    },
+    "/api/elements/name/:name": {
+      "get": {
+        "tags": ["Element by Name"],
+        "summary": "Find element from name",
+        "description": "Returns filter based at name chemical elements.",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of element",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "request": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type" : "object",
+                "properties" : {
+                  "name": {
+                    "type" : "string"
+                  },
+                  "symbol": {
+                    "type" : "string"
+                  },
+                  "atomicNumber": {
+                    "type" : "number"
+                  }
+                },
+                "example": {
+                  "name": "Hidrogênio",
+                  "symbol": "H",
+                  "atomicNumber": 1
+                }
+              }
+            }
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Find by name element"
+          },
+          "500": {
+            "description": "Internal error server"
+          }
+        }
+      }
+    },
+    "/api/elements/symbol/:symbol": {
+      "get": {
+        "tags": ["Element by Symbol"],
+        "summary": "Find element from Symbol",
+        "description": "Returns filter based at symbol chemical elements.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "Symbol of element",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "request": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type" : "object",
+                "properties" : {
+                  "name": {
+                    "type" : "string"
+                  },
+                  "symbol": {
+                    "type" : "string"
+                  },
+                  "atomicNumber": {
+                    "type" : "number"
+                  }
+                },
+                "example": {
+                  "name": "Hidrogênio",
+                  "symbol": "H",
+                  "atomicNumber": 1
+                }
+              }
+            }
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Find by symbol of element"
+          },
+          "500": {
+            "description": "Internal error server"
+          }
+        }
+      }
+    }
+  }
+}
